@@ -13,7 +13,8 @@ import java.util.List;
 public class ShoppingList {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SPL_SEQUENCE")
+    @SequenceGenerator(name = "SPL_SEQUENCE", sequenceName = "SPL_SEQUENCE")
     @Column(name = "SPL_ID")
     private Long id;
 

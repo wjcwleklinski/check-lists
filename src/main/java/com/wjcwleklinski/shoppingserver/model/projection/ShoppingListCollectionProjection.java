@@ -1,6 +1,6 @@
 package com.wjcwleklinski.shoppingserver.model.projection;
 
-public interface ShoppingListCollectionView {
+public interface ShoppingListCollectionProjection {
 
     Long getId();
 
