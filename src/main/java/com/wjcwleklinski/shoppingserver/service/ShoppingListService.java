@@ -2,6 +2,8 @@ package com.wjcwleklinski.shoppingserver.service;
 
 import com.wjcwleklinski.shoppingserver.model.Product;
 import com.wjcwleklinski.shoppingserver.model.command.ProductCreateCommand;
+import com.wjcwleklinski.shoppingserver.model.view.ProductCollectionView;
+import com.wjcwleklinski.shoppingserver.model.view.ProductDetailsView;
 import com.wjcwleklinski.shoppingserver.model.view.ShoppingListDetailsView;
 import com.wjcwleklinski.shoppingserver.repository.ProductRepository;
 import com.wjcwleklinski.shoppingserver.repository.ShoppingListRepository;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -53,5 +56,15 @@ public class ShoppingListService {
             shoppingList.setProducts(new ArrayList<>());
         }
         shoppingList.getProducts().add(product);
+    }
+
+    public List<ProductCollectionView> getProductsInList(Long listId) {
+        return productRepository.findProductsByShoppingListId(listId).stream()
+                .map(ProductCollectionView::getInstance)
+                .collect(Collectors.toList());
+    }
+
+    public ProductDetailsView getProductById(Long productId) {
+        return ProductDetailsView.getInstance(productRepository.getProductById(productId));
     }
 }
