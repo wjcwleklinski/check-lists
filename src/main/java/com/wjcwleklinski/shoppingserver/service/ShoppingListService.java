@@ -1,14 +1,13 @@
 package com.wjcwleklinski.shoppingserver.service;
 
 import com.wjcwleklinski.shoppingserver.model.Product;
-import com.wjcwleklinski.shoppingserver.model.command.ProductCreateCommand;
+import com.wjcwleklinski.shoppingserver.model.command.*;
 import com.wjcwleklinski.shoppingserver.model.view.ProductCollectionView;
 import com.wjcwleklinski.shoppingserver.model.view.ProductDetailsView;
 import com.wjcwleklinski.shoppingserver.model.view.ShoppingListDetailsView;
 import com.wjcwleklinski.shoppingserver.repository.ProductRepository;
 import com.wjcwleklinski.shoppingserver.repository.ShoppingListRepository;
 import com.wjcwleklinski.shoppingserver.model.ShoppingList;
-import com.wjcwleklinski.shoppingserver.model.command.ShoppingListCreateCommand;
 import com.wjcwleklinski.shoppingserver.model.projection.ShoppingListCollectionProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -66,5 +65,34 @@ public class ShoppingListService {
 
     public ProductDetailsView getProductById(Long productId) {
         return ProductDetailsView.getInstance(productRepository.getProductById(productId));
+    }
+
+    public void updateShoppingList(Long listId, ShoppingListUpdateCommand command) {
+        ShoppingList shoppingList = shoppingListRepository.getListById(listId);
+        shoppingList.setName(command.getName());
+        shoppingList.setDescription(command.getDescription());
+        shoppingList.setImage(command.getImage());
+        shoppingListRepository.save(shoppingList);
+    }
+
+    public void deleteShoppingList(Long listId) {
+        shoppingListRepository.deleteById(listId);
+    }
+
+    public void updateProduct(Long productId, ProductUpdateCommand command) {
+        Product product = productRepository.getProductById(productId);
+        product.setName(command.getName());
+        product.setDescription(command.getDescription());
+        product.setPriority(command.getPriority());
+        product.setImage(command.getImage());
+        productRepository.save(product);
+    }
+
+    public void deleteProduct(Long listId, ProductsDeleteCommand command) {
+        ShoppingList shoppingList = shoppingListRepository.getListById(listId);
+        List<Product> products = shoppingList.getProducts().stream()
+                .filter(product -> command.getProductCodes().contains(product.getCode()))
+                .collect(Collectors.toList());
+        productRepository.deleteInBatch(products);
     }
 }
