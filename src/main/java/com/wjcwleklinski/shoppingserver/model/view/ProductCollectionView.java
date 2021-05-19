@@ -1,13 +1,11 @@
 package com.wjcwleklinski.shoppingserver.model.view;
 
 import com.wjcwleklinski.shoppingserver.model.Product;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-
-@Data
-@NoArgsConstructor(staticName = "getInstance", access = AccessLevel.PROTECTED)
+@Getter
+@Setter
+@NoArgsConstructor
 public class ProductCollectionView {
 
     private String code;
@@ -19,7 +17,7 @@ public class ProductCollectionView {
     private String image;
 
     public static ProductCollectionView getInstance(Product product) {
-        return getInstance().fillProperties(product);
+        return new ProductCollectionView().fillProperties(product);
     }
 
     protected ProductCollectionView fillProperties(Product product) {

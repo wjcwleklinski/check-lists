@@ -1,14 +1,11 @@
 package com.wjcwleklinski.shoppingserver.model.view;
 
 import com.wjcwleklinski.shoppingserver.model.Product;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor(staticName = "getInstance", access = AccessLevel.PROTECTED)
+@Getter
+@Setter
+@NoArgsConstructor(staticName = "getInstance")
 public class ProductDetailsView extends ProductCollectionView {
 
     private String description;
