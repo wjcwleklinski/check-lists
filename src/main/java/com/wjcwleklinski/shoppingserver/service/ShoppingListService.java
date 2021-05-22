@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ShoppingListService {
+public class ShoppingListService extends CommonService {
 
     private final ShoppingListRepository shoppingListRepository;
 
@@ -35,11 +35,11 @@ public class ShoppingListService {
 
     public void createShoppingList(ShoppingListCreateCommand command) {
         ShoppingList shoppingList = new ShoppingList();
-        shoppingList.setCode("code_" + command.getName());
+        shoppingList.setCode(command.getCode());
         shoppingList.setName(command.getName());
         shoppingList.setDescription(command.getDescription());
         shoppingList.setImage(command.getImage());
-        shoppingListRepository.save(shoppingList);
+        save(shoppingList, shoppingListRepository);
     }
 
     public void createNewProduct(Long shoppingListId, ProductCreateCommand command) {

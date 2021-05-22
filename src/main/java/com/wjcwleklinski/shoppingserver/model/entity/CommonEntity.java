@@ -11,6 +11,6 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class CommonEntity {
 
-    @Column(name = "CODE")
+    @Column(name = "CODE", unique = true)
     private String code;
 }
