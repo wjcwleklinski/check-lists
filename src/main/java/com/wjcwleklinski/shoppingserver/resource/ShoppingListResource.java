@@ -30,10 +30,14 @@ public class ShoppingListResource {
         return ResponseEntity.ok().build();
     }
 
+
+
     @GetMapping("/{listId}")
-    public ShoppingListDetailsView getShoppingList(@PathVariable("listId") Long listId) {
+    public ShoppingListDetailsView getShoppingList(@PathVariable("listId") String listId) {
         return shoppingListService.getShoppingListDetails(listId);
     }
+
+
 
     @PutMapping("/{listId}")
     public ResponseEntity<?> updateShoppingList(@PathVariable("listId") Long listId,

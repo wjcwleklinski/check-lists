@@ -28,8 +28,8 @@ public class ShoppingListService extends CommonService {
         return shoppingListRepository.findAllShoppingListsBy();
     }
 
-    public ShoppingListDetailsView getShoppingListDetails(Long listId) {
-        ShoppingList shoppingList = shoppingListRepository.getListById(listId);
+    public ShoppingListDetailsView getShoppingListDetails(String listCode) {
+        ShoppingList shoppingList = (ShoppingList) getByCode(listCode, shoppingListRepository);
         return ShoppingListDetailsView.getInstance(shoppingList);
     }
 

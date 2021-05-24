@@ -1,6 +1,7 @@
 package com.wjcwleklinski.shoppingserver.error;
 
 import com.wjcwleklinski.shoppingserver.error.exception.DuplicatedCodeException;
+import com.wjcwleklinski.shoppingserver.error.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,6 +20,13 @@ public class ShoppingServerExceptionHandler extends ResponseEntityExceptionHandl
         ErrorResponse errorResponse = ErrorResponse.buildErrorResponse(HttpStatus.BAD_REQUEST,
                 exception.getMessage(), ((ServletWebRequest) request).getRequest().getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    protected ResponseEntity<ErrorResponse> handleNotFound(Exception exception, WebRequest request) {
+        ErrorResponse errorResponse = ErrorResponse.buildErrorResponse(HttpStatus.NOT_FOUND,
+                exception.getMessage(), ((ServletWebRequest) request).getRequest().getRequestURI());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
     @ExceptionHandler

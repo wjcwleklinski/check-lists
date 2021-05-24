@@ -12,15 +12,11 @@ import java.util.List;
 @Getter
 @Setter
 @AttributeOverrides({
-        @AttributeOverride(name = "code", column = @Column(name = "SPL_CODE"))
+        @AttributeOverride(name = "code", column = @Column(name = "SPL_CODE")),
+        @AttributeOverride(name = "id", column = @Column(name = "SPL_ID"))
 })
+@SequenceGenerator(name = "COMMON_GEN", sequenceName = "SPL_SEQUENCE")
 public class ShoppingList extends CommonEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SPL_SEQUENCE")
-    @SequenceGenerator(name = "SPL_SEQUENCE", sequenceName = "SPL_SEQUENCE")
-    @Column(name = "SPL_ID")
-    private Long id;
 
     @Column(name = "SPL_NAME")
     private String name;
