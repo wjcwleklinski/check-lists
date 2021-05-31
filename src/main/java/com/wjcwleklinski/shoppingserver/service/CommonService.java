@@ -1,6 +1,6 @@
 package com.wjcwleklinski.shoppingserver.service;
 
-import com.wjcwleklinski.shoppingserver.error.exception.DuplicatedCodeException;
+import com.wjcwleklinski.shoppingserver.error.exception.ConflictException;
 import com.wjcwleklinski.shoppingserver.error.exception.NotFoundException;
 import com.wjcwleklinski.shoppingserver.model.entity.CommonEntity;
 import com.wjcwleklinski.shoppingserver.repository.CommonRepository;
@@ -21,7 +21,7 @@ public class CommonService {
         try {
             repository.save(entity);
         } catch (DataIntegrityViolationException ex) {
-            throw new DuplicatedCodeException(entity.getCode());
+            throw new ConflictException(entity.getCode());
         }
     }
 
@@ -31,5 +31,12 @@ public class CommonService {
             throw new NotFoundException(entityCode);
         }
         return entity.get();
+    }
+
+    protected <T extends CommonEntity> void deleteByCode(String entityCode , CommonRepository<T> repository) {
+        if (repository.getByCode(entityCode).isEmpty()) {
+            throw new NotFoundException(entityCode);
+        }
+        repository.deleteByCode(entityCode);
     }
 }

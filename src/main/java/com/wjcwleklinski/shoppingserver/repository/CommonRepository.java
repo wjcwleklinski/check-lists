@@ -10,4 +10,7 @@ import java.util.Optional;
 public interface CommonRepository<T extends CommonEntity> extends JpaRepository<T, Long> {
 
     Optional<T> getByCode(String code);
+
+    void deleteByCode(String code);
+
 }

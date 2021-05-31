@@ -10,7 +10,4 @@ import java.util.List;
 public interface ShoppingListRepository extends CommonRepository<ShoppingList> {
 
     List<ShoppingListCollectionProjection> findAllShoppingListsBy();
-
-    ShoppingList getListById(Long id);
-
 }

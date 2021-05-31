@@ -1,6 +1,6 @@
 package com.wjcwleklinski.shoppingserver.error;
 
-import com.wjcwleklinski.shoppingserver.error.exception.DuplicatedCodeException;
+import com.wjcwleklinski.shoppingserver.error.exception.ConflictException;
 import com.wjcwleklinski.shoppingserver.error.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class ShoppingServerExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(DuplicatedCodeException.class)
+    @ExceptionHandler(ConflictException.class)
     protected ResponseEntity<ErrorResponse> handleDuplicatedCode(Exception exception, WebRequest request) {
-        ErrorResponse errorResponse = ErrorResponse.buildErrorResponse(HttpStatus.BAD_REQUEST,
+        ErrorResponse errorResponse = ErrorResponse.buildErrorResponse(HttpStatus.CONFLICT,
                 exception.getMessage(), ((ServletWebRequest) request).getRequest().getRequestURI());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }
 
     @ExceptionHandler(NotFoundException.class)
