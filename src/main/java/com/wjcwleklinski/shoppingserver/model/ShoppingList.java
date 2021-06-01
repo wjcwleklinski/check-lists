@@ -1,5 +1,6 @@
 package com.wjcwleklinski.shoppingserver.model;
 
+import com.wjcwleklinski.shoppingserver.model.entity.CommonEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,16 +11,12 @@ import java.util.List;
 @Table(name = "SPL_SHOPPING_LISTS")
 @Getter
 @Setter
-public class ShoppingList {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SPL_SEQUENCE")
-    @SequenceGenerator(name = "SPL_SEQUENCE", sequenceName = "SPL_SEQUENCE")
-    @Column(name = "SPL_ID")
-    private Long id;
-
-    @Column(name = "SPL_CODE")
-    private String code;
+@AttributeOverrides({
+        @AttributeOverride(name = "code", column = @Column(name = "SPL_CODE")),
+        @AttributeOverride(name = "id", column = @Column(name = "SPL_ID"))
+})
+@SequenceGenerator(name = "COMMON_GEN", sequenceName = "SPL_SEQUENCE")
+public class ShoppingList extends CommonEntity {
 
     @Column(name = "SPL_NAME")
     private String name;

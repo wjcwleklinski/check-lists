@@ -30,53 +30,21 @@ public class ShoppingListResource {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{listId}")
-    public ShoppingListDetailsView getShoppingList(@PathVariable("listId") Long listId) {
-        return shoppingListService.getShoppingListDetails(listId);
+    @GetMapping("/{listCode}")
+    public ShoppingListDetailsView getShoppingList(@PathVariable("listCode") String listCode) {
+        return shoppingListService.getShoppingListDetails(listCode);
     }
 
-    @PutMapping("/{listId}")
-    public ResponseEntity<?> updateShoppingList(@PathVariable("listId") Long listId,
+    @PutMapping("/{listCode}")
+    public ResponseEntity<?> updateShoppingList(@PathVariable("listCode") String listCode,
                                                 @RequestBody ShoppingListUpdateCommand command) {
-        shoppingListService.updateShoppingList(listId, command);
+        shoppingListService.updateShoppingList(listCode, command);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{listId}")
-    public ResponseEntity<?> deleteShoppingList(@PathVariable("listId") Long listId) {
-        shoppingListService.deleteShoppingList(listId);
+    @DeleteMapping("/{listCode}")
+    public ResponseEntity<?> deleteShoppingList(@PathVariable("listCode") String listCode) {
+        shoppingListService.deleteShoppingList(listCode);
         return ResponseEntity.ok().build();
     }
-
-    @GetMapping("/{listId}/products")
-    public List<ProductCollectionView> getProducts(@PathVariable("listId") Long listId) {
-        return shoppingListService.getProductsInList(listId);
-    }
-
-    @PostMapping("/{listId}/products")
-    public ResponseEntity<?> createProduct(@PathVariable("listId") Long listId,
-                                           @RequestBody ProductCreateCommand command) {
-        shoppingListService.createNewProduct(listId, command);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/{listId}/products/{productId}")
-    public ProductDetailsView getProductDetails(@PathVariable("productId") Long productId) {
-        return shoppingListService.getProductById(productId);
-    }
-
-    @PutMapping("/{listId}/products/{productId}")
-    public ResponseEntity<?> updateSProduct(@PathVariable("productId") Long productId,
-                                            @RequestBody ProductUpdateCommand command) {
-        shoppingListService.updateProduct(productId, command);
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("/{listId}/products")
-    public ResponseEntity<?> deleteProduct(@PathVariable("listId") Long listId,
-                                           @RequestBody ProductsDeleteCommand command) {
-        shoppingListService.deleteProduct(listId, command);
-        return ResponseEntity.ok().build();
-    }
-
 }

@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class ProductCreateCommand {
 
+    private String code;
+
     private String priority;
 
     private String name;
