@@ -2,8 +2,6 @@ package com.wjcwleklinski.shoppingserver.resource;
 
 import com.wjcwleklinski.shoppingserver.model.command.*;
 import com.wjcwleklinski.shoppingserver.model.projection.ShoppingListCollectionProjection;
-import com.wjcwleklinski.shoppingserver.model.view.ProductCollectionView;
-import com.wjcwleklinski.shoppingserver.model.view.ProductDetailsView;
 import com.wjcwleklinski.shoppingserver.model.view.ShoppingListDetailsView;
 import com.wjcwleklinski.shoppingserver.service.ShoppingListService;
 import lombok.RequiredArgsConstructor;
