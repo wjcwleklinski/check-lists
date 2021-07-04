@@ -14,7 +14,7 @@ import java.util.List;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface OneOfEnum {
 
-    String message() default "Must be one of enum";
+    String message() default "Invalid value";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     Class<? extends Enum<?>> enumClass();
@@ -22,10 +22,12 @@ public @interface OneOfEnum {
     class OneOfEnumValidator implements ConstraintValidator<OneOfEnum, String> {
 
         List<String> enumValues;
+        String message;
 
         @Override
         public void initialize(OneOfEnum constraintAnnotation) {
             enumValues = new ArrayList<>();
+            message = constraintAnnotation.message();
             Class<? extends Enum<?>> enumClass = constraintAnnotation.enumClass();
             Enum<?>[] enumConstants = enumClass.getEnumConstants();
             for (Enum<?> enumConstant: enumConstants) {
@@ -35,7 +37,13 @@ public @interface OneOfEnum {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
-            return enumValues.contains(value.toUpperCase());
+            if (!enumValues.contains(value.toUpperCase())) {
+                context.disableDefaultConstraintViolation();
+                message = "Must be one of: " + enumValues.toString();
+                context.buildConstraintViolationWithTemplate(message).addConstraintViolation();
+                return false;
+            }
+            return true;
         }
     }
 }
