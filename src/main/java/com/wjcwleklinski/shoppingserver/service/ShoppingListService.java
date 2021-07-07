@@ -1,9 +1,6 @@
 package com.wjcwleklinski.shoppingserver.service;
 
-import com.wjcwleklinski.shoppingserver.model.Product;
 import com.wjcwleklinski.shoppingserver.model.command.*;
-import com.wjcwleklinski.shoppingserver.model.view.ProductCollectionView;
-import com.wjcwleklinski.shoppingserver.model.view.ProductDetailsView;
 import com.wjcwleklinski.shoppingserver.model.view.ShoppingListDetailsView;
 import com.wjcwleklinski.shoppingserver.repository.ProductRepository;
 import com.wjcwleklinski.shoppingserver.repository.ShoppingListRepository;
@@ -12,9 +9,7 @@ import com.wjcwleklinski.shoppingserver.model.projection.ShoppingListCollectionP
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

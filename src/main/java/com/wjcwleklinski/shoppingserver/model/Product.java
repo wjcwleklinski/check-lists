@@ -2,6 +2,7 @@ package com.wjcwleklinski.shoppingserver.model;
 
 import com.wjcwleklinski.shoppingserver.model.entity.CommonEntity;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -16,6 +17,14 @@ import javax.persistence.*;
 })
 @SequenceGenerator(name = "COMMON_GEN", sequenceName = "SPL_SEQUENCE")
 public class Product extends CommonEntity {
+
+    @RequiredArgsConstructor
+    @Getter
+    public enum Priority {
+        HIGH,
+        MEDIUM,
+        LOW
+    }
 
     @Column(name = "PRD_PRIORITY")
     private String priority;
