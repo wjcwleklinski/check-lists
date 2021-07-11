@@ -1,5 +1,6 @@
 package com.wjcwleklinski.shoppingserver.service;
 
+import com.wjcwleklinski.shoppingserver.common.handler.CommandProcessor;
 import com.wjcwleklinski.shoppingserver.model.command.*;
 import com.wjcwleklinski.shoppingserver.model.view.ShoppingListDetailsView;
 import com.wjcwleklinski.shoppingserver.repository.ProductRepository;
@@ -17,8 +18,6 @@ public class ShoppingListService extends CommonService {
 
     private final ShoppingListRepository shoppingListRepository;
 
-    private final ProductRepository productRepository;
-
     public List<ShoppingListCollectionProjection> getShoppingLists() {
         return shoppingListRepository.findAllShoppingListsBy();
     }
@@ -28,12 +27,7 @@ public class ShoppingListService extends CommonService {
         return ShoppingListDetailsView.getInstance(shoppingList);
     }
 
-    public void createShoppingList(ShoppingListCreateCommand command) {
-        ShoppingList shoppingList = new ShoppingList();
-        shoppingList.setCode(command.getCode());
-        shoppingList.setName(command.getName());
-        shoppingList.setDescription(command.getDescription());
-        shoppingList.setImage(command.getImage());
+    public void createShoppingList(ShoppingList shoppingList) {
         save(shoppingList, shoppingListRepository);
     }
 

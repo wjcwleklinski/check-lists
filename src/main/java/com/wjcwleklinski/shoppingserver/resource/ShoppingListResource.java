@@ -1,5 +1,6 @@
 package com.wjcwleklinski.shoppingserver.resource;
 
+import com.wjcwleklinski.shoppingserver.common.handler.CommandProcessor;
 import com.wjcwleklinski.shoppingserver.model.command.*;
 import com.wjcwleklinski.shoppingserver.model.projection.ShoppingListCollectionProjection;
 import com.wjcwleklinski.shoppingserver.model.view.ShoppingListDetailsView;
@@ -17,6 +18,8 @@ public class ShoppingListResource {
 
     private final ShoppingListService shoppingListService;
 
+    private final CommandProcessor commandProcessor;
+
     @GetMapping
     public List<ShoppingListCollectionProjection> getShoppingLists() {
         return shoppingListService.getShoppingLists();
@@ -24,7 +27,7 @@ public class ShoppingListResource {
 
     @PostMapping
     public ResponseEntity<?> createShoppingList(@RequestBody ShoppingListCreateCommand command) {
-        shoppingListService.createShoppingList(command);
+        commandProcessor.process(command);
         return ResponseEntity.ok().build();
     }
 

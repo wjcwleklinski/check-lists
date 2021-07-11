@@ -1,7 +1,7 @@
 package com.wjcwleklinski.shoppingserver.model.command;
 
 import com.wjcwleklinski.shoppingserver.model.Product;
-import com.wjcwleklinski.shoppingserver.validation.OneOfEnum;
+import com.wjcwleklinski.shoppingserver.common.validation.OneOfEnum;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
