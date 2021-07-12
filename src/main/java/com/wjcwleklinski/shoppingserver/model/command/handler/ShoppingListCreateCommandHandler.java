@@ -14,11 +14,6 @@ public class ShoppingListCreateCommandHandler implements CommandHandler<Shopping
     private final ShoppingListService service;
 
     @Override
-    public Class<ShoppingListCreateCommand> getCommandType() {
-        return ShoppingListCreateCommand.class;
-    }
-
-    @Override
     public void execute(ShoppingListCreateCommand command) {
         ShoppingList shoppingList = new ShoppingList();
         shoppingList.setCode(command.getCode());

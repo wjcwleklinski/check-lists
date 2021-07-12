@@ -1,28 +1,30 @@
 package com.wjcwleklinski.shoppingserver.common.handler;
 
+import com.wjcwleklinski.shoppingserver.error.exception.InternalServerException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.core.ResolvableType;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Arrays;
 
 @Component
 @RequiredArgsConstructor
 public class CommandProcessor {
 
-    private final List<CommandHandler<?>> handlers;
-
     private final ListableBeanFactory beanFactory;
 
+    @SuppressWarnings("unchecked")
     public <T> void process(T command) {
-        Optional<CommandHandler<?>> commandHandler = handlers.stream()
-                .filter(handler -> handler.getCommandType().equals(command.getClass()))
-                .findFirst();
-        commandHandler.ifPresent(handler -> ((CommandHandler<T>) handler).execute(command));
+        try {
+            CommandHandler<T> commandHandler = (CommandHandler<T>) Arrays.stream(beanFactory.getBeanNamesForType(
+                    ResolvableType.forClassWithGenerics(CommandHandler.class, command.getClass())))
+                    .map(beanFactory::getBean)
+                    .findFirst()
+                    .orElseThrow(() -> new InternalServerException("Handler not found for command: " + command.getClass()));
+            commandHandler.execute(command);
+        } catch (ClassCastException classCastException) {
+            throw new InternalServerException("Handler not found for command: " + command.getClass());
+        }
     }
-
-
-
-
 }
