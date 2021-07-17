@@ -1,4 +1,4 @@
-package com.wjcwleklinski.shoppingserver.validation;
+package com.wjcwleklinski.shoppingserver.common.validation;
 
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;

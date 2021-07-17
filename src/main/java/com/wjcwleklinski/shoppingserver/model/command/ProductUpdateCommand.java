@@ -1,9 +1,13 @@
 package com.wjcwleklinski.shoppingserver.model.command;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
 public class ProductUpdateCommand {
+
+    @JsonIgnore
+    private String productCode;
 
     private String priority;
 
