@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class CommonService {
 
-    protected <T extends CommonEntity> void save(T entity, JpaRepository<T, Long> repository) {
+    public <T extends CommonEntity> void save(T entity, JpaRepository<T, Long> repository) {
         if (entity.getCode() == null) {
             entity.setCode(RandomStringUtils.randomAlphanumeric(15));
         }
@@ -25,7 +25,7 @@ public class CommonService {
         }
     }
 
-    protected <T extends CommonEntity> CommonEntity getByCode(String entityCode , CommonRepository<T> repository) {
+    public <T extends CommonEntity> CommonEntity getByCode(String entityCode , CommonRepository<T> repository) {
         Optional<T> entity = repository.getByCode(entityCode);
         if (entity.isEmpty()) {
             throw new NotFoundException(entityCode);
@@ -33,7 +33,7 @@ public class CommonService {
         return entity.get();
     }
 
-    protected <T extends CommonEntity> void deleteByCode(String entityCode , CommonRepository<T> repository) {
+    public <T extends CommonEntity> void deleteByCode(String entityCode , CommonRepository<T> repository) {
         if (repository.getByCode(entityCode).isEmpty()) {
             throw new NotFoundException(entityCode);
         }
