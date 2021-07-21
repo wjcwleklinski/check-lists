@@ -17,7 +17,7 @@ import java.util.Objects;
 
 @ControllerAdvice
 @Log4j2
-public class ShoppingServerExceptionHandler extends ResponseEntityExceptionHandler {
+public class ListServiceExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ConflictException.class)
     protected ResponseEntity<ErrorResponse> handleConflict(Exception exception, WebRequest request) {

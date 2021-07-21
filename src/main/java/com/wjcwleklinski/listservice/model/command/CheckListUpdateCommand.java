@@ -1,15 +1,13 @@
 package com.wjcwleklinski.listservice.model.command;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
+
 @Data
-public class ProductUpdateCommand {
+public class CheckListUpdateCommand {
 
     @JsonIgnore
-    private String productCode;
-
-    private String priority;
+    private String listCode;
 
     private String name;
 

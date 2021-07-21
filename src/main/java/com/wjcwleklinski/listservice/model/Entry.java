@@ -16,7 +16,7 @@ import javax.persistence.*;
         @AttributeOverride(name = "id", column = @Column(name = "PRD_ID"))
 })
 @SequenceGenerator(name = "COMMON_GEN", sequenceName = "SPL_SEQUENCE")
-public class Product extends CommonEntity {
+public class Entry extends CommonEntity {
 
     @RequiredArgsConstructor
     @Getter
@@ -40,5 +40,5 @@ public class Product extends CommonEntity {
 
     @ManyToOne
     @JoinColumn(name = "PRD_SPL_ID")
-    private ShoppingList shoppingList;
+    private CheckList checkList;
 }

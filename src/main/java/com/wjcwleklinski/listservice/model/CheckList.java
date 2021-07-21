@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "SPL_SHOPPING_LISTS")
+@Table(name = "SPL_CHECK_LISTS")
 @Getter
 @Setter
 @AttributeOverrides({
@@ -16,7 +16,7 @@ import java.util.List;
         @AttributeOverride(name = "id", column = @Column(name = "SPL_ID"))
 })
 @SequenceGenerator(name = "COMMON_GEN", sequenceName = "SPL_SEQUENCE")
-public class ShoppingList extends CommonEntity {
+public class CheckList extends CommonEntity {
 
     @Column(name = "SPL_NAME")
     private String name;
@@ -29,5 +29,5 @@ public class ShoppingList extends CommonEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "PRD_SPL_ID", referencedColumnName = "SPL_ID")
-    private List<Product> products;
+    private List<Entry> entries;
 }

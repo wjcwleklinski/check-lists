@@ -1,17 +1,14 @@
 package com.wjcwleklinski.listservice.model.command;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-
+import java.util.List;
 
 @Data
-public class ShoppingListUpdateCommand {
+public class EntryDeleteCommand {
 
     @JsonIgnore
     private String listCode;
 
-    private String name;
-
-    private String description;
-
-    private String image;
+    private List<String> entryCodes;
 }

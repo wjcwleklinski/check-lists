@@ -3,7 +3,7 @@ package com.wjcwleklinski.listservice.model.command;
 import lombok.Data;
 
 @Data
-public class ShoppingListCreateCommand {
+public class CheckListCreateCommand {
 
     private String code;
 

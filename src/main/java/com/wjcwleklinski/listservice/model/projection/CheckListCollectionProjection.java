@@ -1,6 +1,6 @@
 package com.wjcwleklinski.listservice.model.projection;
 
-public interface ShoppingListCollectionProjection {
+public interface CheckListCollectionProjection {
 
     Long getId();
 
