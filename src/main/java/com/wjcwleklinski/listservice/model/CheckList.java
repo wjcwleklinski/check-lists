@@ -8,26 +8,26 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "SPL_CHECK_LISTS")
+@Table(name = "CHL_CHECK_LISTS")
 @Getter
 @Setter
 @AttributeOverrides({
-        @AttributeOverride(name = "code", column = @Column(name = "SPL_CODE")),
-        @AttributeOverride(name = "id", column = @Column(name = "SPL_ID"))
+        @AttributeOverride(name = "code", column = @Column(name = "CHL_CODE")),
+        @AttributeOverride(name = "id", column = @Column(name = "CHL_ID"))
 })
-@SequenceGenerator(name = "COMMON_GEN", sequenceName = "SPL_SEQUENCE")
+@SequenceGenerator(name = "COMMON_GEN", sequenceName = "CHL_SEQUENCE")
 public class CheckList extends CommonEntity {
 
-    @Column(name = "SPL_NAME")
+    @Column(name = "CHL_NAME")
     private String name;
 
-    @Column(name = "SPL_DESCRIPTION")
+    @Column(name = "CHL_DESCRIPTION")
     private String description;
 
-    @Column(name = "SPL_IMAGE")
+    @Column(name = "CHL_IMAGE")
     private String image;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "PRD_SPL_ID", referencedColumnName = "SPL_ID")
+    @JoinColumn(name = "ETR_CHL_ID", referencedColumnName = "CHL_ID")
     private List<Entry> entries;
 }

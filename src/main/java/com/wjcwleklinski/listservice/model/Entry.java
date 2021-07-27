@@ -8,14 +8,14 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PRD_PRODUCTS")
+@Table(name = "ETR_ENTRIES")
 @Getter
 @Setter
 @AttributeOverrides({
-        @AttributeOverride(name = "code", column = @Column(name = "PRD_CODE")),
-        @AttributeOverride(name = "id", column = @Column(name = "PRD_ID"))
+        @AttributeOverride(name = "code", column = @Column(name = "ETR_CODE")),
+        @AttributeOverride(name = "id", column = @Column(name = "ETR_ID"))
 })
-@SequenceGenerator(name = "COMMON_GEN", sequenceName = "SPL_SEQUENCE")
+@SequenceGenerator(name = "COMMON_GEN", sequenceName = "ETR_SEQUENCE")
 public class Entry extends CommonEntity {
 
     @RequiredArgsConstructor
@@ -26,19 +26,19 @@ public class Entry extends CommonEntity {
         LOW
     }
 
-    @Column(name = "PRD_PRIORITY")
+    @Column(name = "ETR_PRIORITY")
     private String priority;
 
-    @Column(name = "PRD_NAME")
+    @Column(name = "ETR_NAME")
     private String name;
 
-    @Column(name = "PRD_DESCRIPTION")
+    @Column(name = "ETR_DESCRIPTION")
     private String description;
 
-    @Column(name = "PRD_IMAGE")
+    @Column(name = "ETR_IMAGE")
     private String image;
 
     @ManyToOne
-    @JoinColumn(name = "PRD_SPL_ID")
+    @JoinColumn(name = "ETR_CHL_ID")
     private CheckList checkList;
 }

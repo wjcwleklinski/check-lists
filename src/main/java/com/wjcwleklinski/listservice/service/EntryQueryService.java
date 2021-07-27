@@ -19,7 +19,7 @@ public class EntryQueryService {
     private final CommonService commonService;
 
     public List<EntryCollectionView> getProductsInList(String listCode) {
-        return entryRepository.findProductsByShoppingListCode(listCode).stream()
+        return entryRepository.findProductsByCheckListCode(listCode).stream()
                 .map(EntryCollectionView::getInstance)
                 .collect(Collectors.toList());
     }

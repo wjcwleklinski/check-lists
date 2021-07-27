@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface EntryRepository extends CommonRepository<Entry> {
 
-    List<Entry> findProductsByShoppingListCode(String listCode);
+    List<Entry> findProductsByCheckListCode(String listCode);
 }
