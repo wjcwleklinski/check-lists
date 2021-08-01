@@ -1,6 +1,6 @@
 package com.wjcwleklinski.listservice.repository;
 
-import com.wjcwleklinski.listservice.model.Entry;
+import com.wjcwleklinski.listservice.model.entity.Entry;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 

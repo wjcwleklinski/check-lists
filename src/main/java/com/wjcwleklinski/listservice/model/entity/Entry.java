@@ -1,6 +1,5 @@
-package com.wjcwleklinski.listservice.model;
+package com.wjcwleklinski.listservice.model.entity;
 
-import com.wjcwleklinski.listservice.model.entity.CommonEntity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

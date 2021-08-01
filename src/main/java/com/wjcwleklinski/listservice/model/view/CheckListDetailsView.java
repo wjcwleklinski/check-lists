@@ -1,7 +1,7 @@
 package com.wjcwleklinski.listservice.model.view;
 
-import com.wjcwleklinski.listservice.model.Entry;
-import com.wjcwleklinski.listservice.model.CheckList;
+import com.wjcwleklinski.listservice.model.entity.Entry;
+import com.wjcwleklinski.listservice.model.entity.CheckList;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -2,7 +2,7 @@ package com.wjcwleklinski.listservice.service;
 
 import com.wjcwleklinski.listservice.model.view.CheckListDetailsView;
 import com.wjcwleklinski.listservice.repository.CheckListRepository;
-import com.wjcwleklinski.listservice.model.CheckList;
+import com.wjcwleklinski.listservice.model.entity.CheckList;
 import com.wjcwleklinski.listservice.model.projection.CheckListCollectionProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.wjcwleklinski.listservice.service;
 
-import com.wjcwleklinski.listservice.model.Entry;
+import com.wjcwleklinski.listservice.model.entity.Entry;
 import com.wjcwleklinski.listservice.model.view.EntryCollectionView;
 import com.wjcwleklinski.listservice.model.view.EntryDetailsView;
 import com.wjcwleklinski.listservice.repository.EntryRepository;

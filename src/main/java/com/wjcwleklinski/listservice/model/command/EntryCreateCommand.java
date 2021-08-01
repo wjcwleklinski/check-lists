@@ -1,7 +1,7 @@
 package com.wjcwleklinski.listservice.model.command;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.wjcwleklinski.listservice.model.Entry;
+import com.wjcwleklinski.listservice.model.entity.Entry;
 import com.wjcwleklinski.listservice.common.validation.OneOfEnum;
 import lombok.Data;
 
