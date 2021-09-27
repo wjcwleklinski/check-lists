@@ -1,6 +1,6 @@
 package com.wjcwleklinski.listservice.model.view;
 
-import com.wjcwleklinski.listservice.model.Entry;
+import com.wjcwleklinski.listservice.model.entity.Entry;
 import lombok.*;
 
 @Getter

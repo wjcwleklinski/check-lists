@@ -1,6 +1,6 @@
 package com.wjcwleklinski.listservice.repository;
 
-import com.wjcwleklinski.listservice.model.CheckList;
+import com.wjcwleklinski.listservice.model.entity.CheckList;
 import com.wjcwleklinski.listservice.model.projection.CheckListCollectionProjection;
 import org.springframework.stereotype.Repository;
 

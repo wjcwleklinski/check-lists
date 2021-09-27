@@ -1,8 +1,8 @@
 package com.wjcwleklinski.listservice.model.command.handler;
 
 import com.wjcwleklinski.listservice.common.handler.CommandHandler;
-import com.wjcwleklinski.listservice.model.Entry;
-import com.wjcwleklinski.listservice.model.CheckList;
+import com.wjcwleklinski.listservice.model.entity.Entry;
+import com.wjcwleklinski.listservice.model.entity.CheckList;
 import com.wjcwleklinski.listservice.model.command.EntryCreateCommand;
 import com.wjcwleklinski.listservice.repository.EntryRepository;
 import com.wjcwleklinski.listservice.repository.CheckListRepository;
