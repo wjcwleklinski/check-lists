@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/shopping-lists/{listCode}/products")
+@RequestMapping("/check-lists/{listCode}/entries")
 @RequiredArgsConstructor
 public class EntryResource {
 

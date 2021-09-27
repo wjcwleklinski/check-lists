@@ -6,6 +6,7 @@ import com.wjcwleklinski.listservice.common.validation.OneOfEnum;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class EntryCreateCommand {
@@ -15,7 +16,7 @@ public class EntryCreateCommand {
 
     private String code;
 
-    @NotBlank
+    @NotNull
     @OneOfEnum(enumClass = Entry.Priority.class)
     private String priority;
 
