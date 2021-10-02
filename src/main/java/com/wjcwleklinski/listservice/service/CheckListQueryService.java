@@ -17,16 +17,16 @@ public class CheckListQueryService {
 
     private final CommonService commonService;
 
-    public List<CheckListCollectionProjection> getShoppingLists() {
+    public List<CheckListCollectionProjection> getCheckLists() {
         return checkListRepository.findAllShoppingListsBy();
     }
 
-    public CheckListDetailsView getShoppingListDetails(String listCode) {
+    public CheckListDetailsView getCheckListDetails(String listCode) {
         CheckList checkList = (CheckList) commonService.getByCode(listCode, checkListRepository);
         return CheckListDetailsView.getInstance(checkList);
     }
 
-    public void deleteShoppingList(String listCode) {
+    public void deleteCheckList(String listCode) {
         commonService.deleteByCode(listCode, checkListRepository);
     }
 }

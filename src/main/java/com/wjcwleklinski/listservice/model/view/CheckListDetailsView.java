@@ -5,6 +5,7 @@ import com.wjcwleklinski.listservice.model.entity.CheckList;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,12 +38,12 @@ public class CheckListDetailsView {
         this.setCode(checkList.getCode());
         this.setDescription(checkList.getDescription());
         this.setImage(checkList.getImage());
-        this.setCodesOfEntries(checkList.getEntries()
+        this.setCodesOfEntries(CollectionUtils.emptyIfNull(checkList.getEntries())
                 .stream()
                 .map(Entry::getCode)
                 .collect(Collectors.toList())
         );
-        this.setNamesOfEntries(checkList.getEntries()
+        this.setNamesOfEntries(CollectionUtils.emptyIfNull(checkList.getEntries())
                 .stream()
                 .map(Entry::getName)
                 .collect(Collectors.toList())

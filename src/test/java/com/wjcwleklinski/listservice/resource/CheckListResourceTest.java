@@ -2,7 +2,9 @@ package com.wjcwleklinski.listservice.resource;
 
 import com.wjcwleklinski.listservice.CommonResourceTest;
 import com.wjcwleklinski.listservice.model.entity.CheckList;
+import com.wjcwleklinski.listservice.model.entity.Entry;
 import com.wjcwleklinski.listservice.model.projection.CheckListCollectionProjection;
+import com.wjcwleklinski.listservice.model.view.CheckListDetailsView;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
@@ -13,6 +15,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
@@ -50,8 +53,8 @@ public class CheckListResourceTest extends CommonResourceTest {
         );
         when(checkListRepository.findAllShoppingListsBy()).thenReturn(checkLists);
 
-        ResponseEntity<List<Map<String, Object>>> response = restTemplate.exchange(getUrl("/check-lists"), HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<Map<String, Object>>>(){});
+        ResponseEntity<List<Map<String, Object>>> response = restTemplate.exchange(getUrl("/check-lists"), HttpMethod.GET,
+                null, new ParameterizedTypeReference<List<Map<String, Object>>>(){});
         Assert.assertEquals(200, response.getStatusCodeValue());
         Assert.assertEquals(response.getBody().get(0).size(), 5);
         Assert.assertEquals(response.getBody().get(0).get("id"), 1);
@@ -71,6 +74,51 @@ public class CheckListResourceTest extends CommonResourceTest {
         Assert.assertEquals(response.getBody().get(2).get("name"), "name3");
         Assert.assertEquals(response.getBody().get(2).get("description"), "description3");
         Assert.assertEquals(response.getBody().get(2).get("image"), "image3");
+    }
+
+    @Test
+    public void getChecklistByCode_fullResponse() throws URISyntaxException {
+        CheckList checkList1 = CheckList.builder()
+                .name("name1")
+                .description("description1")
+                .image("image1")
+                .build();
+        checkList1.setCode("checkList1");
+        checkList1.setId(1L);
+        Entry entry1 = Entry.builder()
+                .name("name1")
+                .description("description1")
+                .image("image1")
+                .priority(Entry.Priority.MEDIUM.toString())
+                .checkList(checkList1)
+                .build();
+        entry1.setId(1L);
+        entry1.setCode("entry1");
+        Entry entry2 = Entry.builder()
+                .name("name2")
+                .description("description2")
+                .image("image2")
+                .priority(Entry.Priority.MEDIUM.toString())
+                .checkList(checkList1)
+                .build();
+        entry2.setId(2L);
+        entry2.setCode("entry2");
+        checkList1.setEntries(Arrays.asList(entry1, entry2));
+
+        when(checkListRepository.getByCode("checkList1")).thenReturn(Optional.of(checkList1));
+        ResponseEntity<CheckListDetailsView> response = restTemplate.exchange(getUrl("/check-lists/checkList1"), HttpMethod.GET,
+                null, CheckListDetailsView.class);
+        Assert.assertEquals(200, response.getStatusCodeValue());
+        CheckListDetailsView responseBody = response.getBody();
+        Assert.assertEquals(responseBody.getId(), (Long)1L);
+        Assert.assertEquals(responseBody.getCode(), "checkList1");
+        Assert.assertEquals(responseBody.getName(), "name1");
+        Assert.assertEquals(responseBody.getDescription(), "description1");
+        Assert.assertEquals(responseBody.getImage(), "image1");
+        Assert.assertEquals(responseBody.getCodesOfEntries().size(), 2);
+        Assert.assertEquals(responseBody.getNamesOfEntries().size(), 2);
+        Assert.assertEquals(responseBody.getCodesOfEntries(), Arrays.asList("entry1", "entry2"));
+        Assert.assertEquals(responseBody.getNamesOfEntries(), Arrays.asList("name1", "name2"));
     }
 
     private CheckListCollectionProjection mockCheckListCollectionProjection(CheckList checkList) {
