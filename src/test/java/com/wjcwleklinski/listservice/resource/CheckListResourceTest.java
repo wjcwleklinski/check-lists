@@ -1,6 +1,8 @@
 package com.wjcwleklinski.listservice.resource;
 
 import com.wjcwleklinski.listservice.CommonResourceTest;
+import com.wjcwleklinski.listservice.model.command.CheckListCreateCommand;
+import com.wjcwleklinski.listservice.model.command.CheckListUpdateCommand;
 import com.wjcwleklinski.listservice.model.entity.CheckList;
 import com.wjcwleklinski.listservice.model.entity.Entry;
 import com.wjcwleklinski.listservice.model.projection.CheckListCollectionProjection;
@@ -8,6 +10,8 @@ import com.wjcwleklinski.listservice.model.view.CheckListDetailsView;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
@@ -23,7 +27,7 @@ import static org.mockito.Mockito.when;
 public class CheckListResourceTest extends CommonResourceTest {
 
     @Test
-    public void getCheckLists_fullResponse() throws URISyntaxException {
+    public void getCheckListsFullResponse_200() throws URISyntaxException {
         CheckList checkList1 = CheckList.builder()
                 .name("name1")
                 .description("description1")
@@ -77,7 +81,7 @@ public class CheckListResourceTest extends CommonResourceTest {
     }
 
     @Test
-    public void getChecklistByCode_fullResponse() throws URISyntaxException {
+    public void getChecklistByCodeFullResponse_200() throws URISyntaxException {
         CheckList checkList1 = CheckList.builder()
                 .name("name1")
                 .description("description1")
@@ -119,6 +123,68 @@ public class CheckListResourceTest extends CommonResourceTest {
         Assert.assertEquals(responseBody.getNamesOfEntries().size(), 2);
         Assert.assertEquals(responseBody.getCodesOfEntries(), Arrays.asList("entry1", "entry2"));
         Assert.assertEquals(responseBody.getNamesOfEntries(), Arrays.asList("name1", "name2"));
+    }
+
+    @Test
+    public void addCheckList_200() throws URISyntaxException {
+        CheckList checkList1 = CheckList.builder()
+                .name("name1")
+                .description("description1")
+                .image("image1")
+                .build();
+        checkList1.setCode("checkList1");
+        checkList1.setId(1L);
+        CheckListCreateCommand command = new CheckListCreateCommand();
+        command.setCode("checkList1");
+        command.setName("name1");
+        command.setDescription("description1");
+        command.setImage("image1");
+
+        when(checkListRepository.save(checkList1)).thenReturn(checkList1);
+        HttpEntity<CheckListCreateCommand> request = new HttpEntity<>(command, new HttpHeaders());
+        ResponseEntity<String> response = restTemplate.exchange(getUrl("/check-lists"), HttpMethod.POST,
+                request, String.class);
+        Assert.assertEquals(200, response.getStatusCodeValue());
+    }
+
+    @Test
+    public void updateCheckList_200() throws URISyntaxException {
+        CheckList checkList1 = CheckList.builder()
+                .name("name1")
+                .description("description1")
+                .image("image1")
+                .build();
+        checkList1.setCode("checkList1");
+        checkList1.setId(1L);
+        CheckListUpdateCommand command = new CheckListUpdateCommand();
+        command.setName("name1 updated name");
+        command.setDescription("description1 updated description");
+        command.setImage("image1 updated image");
+
+        when(checkListRepository.getByCode(checkList1.getCode())).thenReturn(Optional.of(checkList1));
+        checkList1.setName(command.getName());
+        checkList1.setDescription(command.getDescription());
+        checkList1.setImage(command.getImage());
+        when(checkListRepository.save(checkList1)).thenReturn(checkList1);
+        HttpEntity<CheckListUpdateCommand> request = new HttpEntity<>(command, new HttpHeaders());
+        ResponseEntity<String> response = restTemplate.exchange(getUrl("/check-lists/checkList1"), HttpMethod.PUT,
+                request, String.class);
+        Assert.assertEquals(200, response.getStatusCodeValue());
+    }
+
+    @Test
+    public void deleteCheckList_200() throws URISyntaxException {
+        CheckList checkList1 = CheckList.builder()
+                .name("name1")
+                .description("description1")
+                .image("image1")
+                .build();
+        checkList1.setCode("checkList1");
+        checkList1.setId(1L);
+        when(checkListRepository.getByCode(checkList1.getCode())).thenReturn(Optional.of(checkList1));
+        ResponseEntity<CheckListDetailsView> response = restTemplate.exchange(getUrl("/check-lists/checkList1"), HttpMethod.DELETE,
+                null, CheckListDetailsView.class);
+        Assert.assertEquals(200, response.getStatusCodeValue());
     }
 
     private CheckListCollectionProjection mockCheckListCollectionProjection(CheckList checkList) {
