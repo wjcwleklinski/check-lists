@@ -7,8 +7,8 @@ import com.wjcwleklinski.listservice.model.entity.CheckList;
 import com.wjcwleklinski.listservice.model.entity.Entry;
 import com.wjcwleklinski.listservice.model.projection.CheckListCollectionProjection;
 import com.wjcwleklinski.listservice.model.view.CheckListDetailsView;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -59,25 +59,25 @@ public class CheckListResourceTest extends CommonResourceTest {
 
         ResponseEntity<List<Map<String, Object>>> response = restTemplate.exchange(getUrl("/check-lists"), HttpMethod.GET,
                 null, new ParameterizedTypeReference<List<Map<String, Object>>>(){});
-        Assert.assertEquals(200, response.getStatusCodeValue());
-        Assert.assertEquals(response.getBody().get(0).size(), 5);
-        Assert.assertEquals(response.getBody().get(0).get("id"), 1);
-        Assert.assertEquals(response.getBody().get(0).get("code"), "checkList1");
-        Assert.assertEquals(response.getBody().get(0).get("name"), "name1");
-        Assert.assertEquals(response.getBody().get(0).get("description"), "description1");
-        Assert.assertEquals(response.getBody().get(0).get("image"), "image1");
-        Assert.assertEquals(response.getBody().get(1).size(), 5);
-        Assert.assertEquals(response.getBody().get(1).get("id"), 2);
-        Assert.assertEquals(response.getBody().get(1).get("code"), "checkList2");
-        Assert.assertEquals(response.getBody().get(1).get("name"), "name2");
-        Assert.assertEquals(response.getBody().get(1).get("description"), "description2");
-        Assert.assertEquals(response.getBody().get(1).get("image"), "image2");
-        Assert.assertEquals(response.getBody().get(2).size(), 5);
-        Assert.assertEquals(response.getBody().get(2).get("id"), 3);
-        Assert.assertEquals(response.getBody().get(2).get("code"), "checkList3");
-        Assert.assertEquals(response.getBody().get(2).get("name"), "name3");
-        Assert.assertEquals(response.getBody().get(2).get("description"), "description3");
-        Assert.assertEquals(response.getBody().get(2).get("image"), "image3");
+        Assertions.assertEquals(200, response.getStatusCodeValue());
+        Assertions.assertEquals(response.getBody().get(0).size(), 5);
+        Assertions.assertEquals(response.getBody().get(0).get("id"), 1);
+        Assertions.assertEquals(response.getBody().get(0).get("code"), "checkList1");
+        Assertions.assertEquals(response.getBody().get(0).get("name"), "name1");
+        Assertions.assertEquals(response.getBody().get(0).get("description"), "description1");
+        Assertions.assertEquals(response.getBody().get(0).get("image"), "image1");
+        Assertions.assertEquals(response.getBody().get(1).size(), 5);
+        Assertions.assertEquals(response.getBody().get(1).get("id"), 2);
+        Assertions.assertEquals(response.getBody().get(1).get("code"), "checkList2");
+        Assertions.assertEquals(response.getBody().get(1).get("name"), "name2");
+        Assertions.assertEquals(response.getBody().get(1).get("description"), "description2");
+        Assertions.assertEquals(response.getBody().get(1).get("image"), "image2");
+        Assertions.assertEquals(response.getBody().get(2).size(), 5);
+        Assertions.assertEquals(response.getBody().get(2).get("id"), 3);
+        Assertions.assertEquals(response.getBody().get(2).get("code"), "checkList3");
+        Assertions.assertEquals(response.getBody().get(2).get("name"), "name3");
+        Assertions.assertEquals(response.getBody().get(2).get("description"), "description3");
+        Assertions.assertEquals(response.getBody().get(2).get("image"), "image3");
     }
 
     @Test
@@ -112,39 +112,39 @@ public class CheckListResourceTest extends CommonResourceTest {
         when(checkListRepository.getByCode("checkList1")).thenReturn(Optional.of(checkList1));
         ResponseEntity<CheckListDetailsView> response = restTemplate.exchange(getUrl("/check-lists/checkList1"), HttpMethod.GET,
                 null, CheckListDetailsView.class);
-        Assert.assertEquals(200, response.getStatusCodeValue());
+        Assertions.assertEquals(200, response.getStatusCodeValue());
         CheckListDetailsView responseBody = response.getBody();
-        Assert.assertEquals(responseBody.getId(), (Long)1L);
-        Assert.assertEquals(responseBody.getCode(), "checkList1");
-        Assert.assertEquals(responseBody.getName(), "name1");
-        Assert.assertEquals(responseBody.getDescription(), "description1");
-        Assert.assertEquals(responseBody.getImage(), "image1");
-        Assert.assertEquals(responseBody.getCodesOfEntries().size(), 2);
-        Assert.assertEquals(responseBody.getNamesOfEntries().size(), 2);
-        Assert.assertEquals(responseBody.getCodesOfEntries(), Arrays.asList("entry1", "entry2"));
-        Assert.assertEquals(responseBody.getNamesOfEntries(), Arrays.asList("name1", "name2"));
+        Assertions.assertEquals(checkList1.getId(), responseBody.getId());
+        Assertions.assertEquals(checkList1.getCode(), responseBody.getCode());
+        Assertions.assertEquals(checkList1.getName(), responseBody.getName());
+        Assertions.assertEquals(checkList1.getDescription(), responseBody.getDescription());
+        Assertions.assertEquals(checkList1.getImage(), responseBody.getImage());
+        Assertions.assertEquals(2, responseBody.getCodesOfEntries().size());
+        Assertions.assertEquals(2, responseBody.getNamesOfEntries().size());
+        Assertions.assertEquals(Arrays.asList(entry1.getCode(), entry2.getCode()), responseBody.getCodesOfEntries());
+        Assertions.assertEquals(Arrays.asList(entry1.getName(), entry2.getName()), responseBody.getNamesOfEntries());
     }
 
     @Test
     public void addCheckList_200() throws URISyntaxException {
-        CheckList checkList1 = CheckList.builder()
-                .name("name1")
+        CheckList checkList = CheckList.builder()
+                .name("name")
                 .description("description1")
-                .image("image1")
+                .image("image")
                 .build();
-        checkList1.setCode("checkList1");
-        checkList1.setId(1L);
+        checkList.setCode("checkList");
+        checkList.setId(1L);
         CheckListCreateCommand command = new CheckListCreateCommand();
-        command.setCode("checkList1");
-        command.setName("name1");
-        command.setDescription("description1");
-        command.setImage("image1");
+        command.setCode(checkList.getCode());
+        command.setName(checkList.getName());
+        command.setDescription(checkList.getDescription());
+        command.setImage(checkList.getImage());
 
-        when(checkListRepository.save(checkList1)).thenReturn(checkList1);
+        when(checkListRepository.save(checkList)).thenReturn(checkList);
         HttpEntity<CheckListCreateCommand> request = new HttpEntity<>(command, new HttpHeaders());
         ResponseEntity<String> response = restTemplate.exchange(getUrl("/check-lists"), HttpMethod.POST,
                 request, String.class);
-        Assert.assertEquals(200, response.getStatusCodeValue());
+        Assertions.assertEquals(200, response.getStatusCodeValue());
     }
 
     @Test
@@ -169,7 +169,7 @@ public class CheckListResourceTest extends CommonResourceTest {
         HttpEntity<CheckListUpdateCommand> request = new HttpEntity<>(command, new HttpHeaders());
         ResponseEntity<String> response = restTemplate.exchange(getUrl("/check-lists/checkList1"), HttpMethod.PUT,
                 request, String.class);
-        Assert.assertEquals(200, response.getStatusCodeValue());
+        Assertions.assertEquals(200, response.getStatusCodeValue());
     }
 
     @Test
@@ -184,7 +184,7 @@ public class CheckListResourceTest extends CommonResourceTest {
         when(checkListRepository.getByCode(checkList1.getCode())).thenReturn(Optional.of(checkList1));
         ResponseEntity<CheckListDetailsView> response = restTemplate.exchange(getUrl("/check-lists/checkList1"), HttpMethod.DELETE,
                 null, CheckListDetailsView.class);
-        Assert.assertEquals(200, response.getStatusCodeValue());
+        Assertions.assertEquals(200, response.getStatusCodeValue());
     }
 
     private CheckListCollectionProjection mockCheckListCollectionProjection(CheckList checkList) {
