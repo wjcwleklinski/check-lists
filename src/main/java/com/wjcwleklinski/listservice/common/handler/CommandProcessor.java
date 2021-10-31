@@ -1,5 +1,6 @@
 package com.wjcwleklinski.listservice.common.handler;
 
+import com.wjcwleklinski.listservice.error.ErrorMessage;
 import com.wjcwleklinski.listservice.error.exception.InternalServerException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ListableBeanFactory;
@@ -21,10 +22,10 @@ public class CommandProcessor {
                     ResolvableType.forClassWithGenerics(CommandHandler.class, command.getClass())))
                     .map(beanFactory::getBean)
                     .findFirst()
-                    .orElseThrow(() -> new InternalServerException("Handler not found for command: " + command.getClass()));
+                    .orElseThrow(() -> new InternalServerException(ErrorMessage.COMMAND_HANDLER_NOT_FOUND.getMessage(command.getClass())));
             commandHandler.execute(command);
         } catch (ClassCastException classCastException) {
-            throw new InternalServerException("Handler not found for command: " + command.getClass());
+            throw new InternalServerException(ErrorMessage.COMMAND_HANDLER_NOT_FOUND.getMessage(command.getClass()));
         }
     }
 }

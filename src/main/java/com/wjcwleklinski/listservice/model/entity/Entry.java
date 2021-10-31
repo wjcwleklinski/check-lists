@@ -1,8 +1,6 @@
 package com.wjcwleklinski.listservice.model.entity;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -15,6 +13,9 @@ import javax.persistence.*;
         @AttributeOverride(name = "id", column = @Column(name = "ETR_ID"))
 })
 @SequenceGenerator(name = "COMMON_GEN", sequenceName = "ETR_SEQUENCE")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Entry extends CommonEntity {
 
     @RequiredArgsConstructor

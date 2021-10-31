@@ -1,5 +1,6 @@
 package com.wjcwleklinski.listservice.service;
 
+import com.wjcwleklinski.listservice.error.ErrorMessage;
 import com.wjcwleklinski.listservice.error.exception.InternalServerException;
 import com.wjcwleklinski.listservice.error.exception.NotFoundException;
 import com.wjcwleklinski.listservice.model.entity.File;
@@ -29,7 +30,7 @@ public class FileService {
             fileRepository.save(file);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new InternalServerException("Could not store a file");
+            throw new InternalServerException(ErrorMessage.FILE_ERROR.getMessage());
         }
     }
 
