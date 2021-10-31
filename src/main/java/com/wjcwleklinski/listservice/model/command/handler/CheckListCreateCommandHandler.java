@@ -18,11 +18,12 @@ public class CheckListCreateCommandHandler implements CommandHandler<CheckListCr
 
     @Override
     public void execute(CheckListCreateCommand command) {
-        CheckList checkList = new CheckList();
+        CheckList checkList = CheckList.builder()
+                .name(command.getName())
+                .description(command.getDescription())
+                .image(command.getImage())
+                .build();
         checkList.setCode(command.getCode());
-        checkList.setName(command.getName());
-        checkList.setDescription(command.getDescription());
-        checkList.setImage(command.getImage());
         commonService.save(checkList, checkListRepository);
     }
 }

@@ -22,7 +22,7 @@ public class CheckListResource {
 
     @GetMapping
     public List<CheckListCollectionProjection> getCheckLists() {
-        return checkListQueryService.getShoppingLists();
+        return checkListQueryService.getCheckLists();
     }
 
     @PostMapping
@@ -33,7 +33,7 @@ public class CheckListResource {
 
     @GetMapping("/{listCode}")
     public CheckListDetailsView getCheckList(@PathVariable("listCode") String listCode) {
-        return checkListQueryService.getShoppingListDetails(listCode);
+        return checkListQueryService.getCheckListDetails(listCode);
     }
 
     @PutMapping("/{listCode}")
@@ -46,7 +46,7 @@ public class CheckListResource {
 
     @DeleteMapping("/{listCode}")
     public ResponseEntity<?> deleteCheckList(@PathVariable("listCode") String listCode) {
-        checkListQueryService.deleteShoppingList(listCode);
+        checkListQueryService.deleteCheckList(listCode);
         return ResponseEntity.ok().build();
     }
 }

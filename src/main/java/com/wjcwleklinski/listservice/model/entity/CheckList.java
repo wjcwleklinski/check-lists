@@ -1,7 +1,6 @@
 package com.wjcwleklinski.listservice.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,6 +14,9 @@ import java.util.List;
         @AttributeOverride(name = "id", column = @Column(name = "CHL_ID"))
 })
 @SequenceGenerator(name = "COMMON_GEN", sequenceName = "CHL_SEQUENCE")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CheckList extends CommonEntity {
 
     @Column(name = "CHL_NAME")

@@ -1,5 +1,6 @@
 package com.wjcwleklinski.listservice.error;
 
+import com.wjcwleklinski.listservice.error.exception.BadRequestException;
 import com.wjcwleklinski.listservice.error.exception.ConflictException;
 import com.wjcwleklinski.listservice.error.exception.NotFoundException;
 import lombok.extern.log4j.Log4j2;
@@ -33,6 +34,14 @@ public class ListServiceExceptionHandler extends ResponseEntityExceptionHandler 
                 exception.getMessage(), request);
         log.error(exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    protected ResponseEntity<ErrorResponse> handleBadRequest(Exception exception, WebRequest request) {
+        ErrorResponse errorResponse = ErrorResponse.buildErrorResponse(HttpStatus.BAD_REQUEST,
+                exception.getMessage(), request);
+        log.error(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     @ExceptionHandler

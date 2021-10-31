@@ -1,10 +1,10 @@
 package com.wjcwleklinski.listservice.error.exception;
 
+import com.wjcwleklinski.listservice.error.ErrorMessage;
+
 public class ConflictException extends RuntimeException {
 
-    private static final String message = "Entity of code: %s already exists.";
-
     public ConflictException(String entityCode) {
-        super(String.format(message, entityCode));
+        super(ErrorMessage.ENTITY_OF_CODE_ALREADY_EXISTS.getMessage(entityCode));
     }
 }
