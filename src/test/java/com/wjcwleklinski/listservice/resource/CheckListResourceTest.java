@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
 
@@ -140,11 +141,11 @@ public class CheckListResourceTest extends CommonResourceTest {
         command.setDescription(checkList.getDescription());
         command.setImage(checkList.getImage());
 
-        when(checkListRepository.save(checkList)).thenReturn(checkList);
+        when(checkListRepository.save(any(CheckList.class))).thenReturn(checkList);
         HttpEntity<CheckListCreateCommand> request = new HttpEntity<>(command, new HttpHeaders());
         ResponseEntity<String> response = restTemplate.exchange(getUrl("/check-lists"), HttpMethod.POST,
                 request, String.class);
-        Assertions.assertEquals(200, response.getStatusCodeValue());
+        Assertions.assertEquals(201, response.getStatusCodeValue());
     }
 
     @Test

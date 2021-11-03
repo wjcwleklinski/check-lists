@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import java.net.URISyntaxException;
 import java.util.*;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 
@@ -118,11 +119,11 @@ public class EntryResourceTest extends CommonResourceTest {
         command.setImage(entry.getImage());
 
         when(checkListRepository.getByCode(checkList.getCode())).thenReturn(Optional.of(checkList));
-        when(entryRepository.save(entry)).thenReturn(entry);
+        when(entryRepository.save(any(Entry.class))).thenReturn(entry);
         HttpEntity<EntryCreateCommand> request = new HttpEntity<>(command, new HttpHeaders());
         ResponseEntity<String> response = restTemplate.exchange(getUrl("/check-lists/checkListCode/entries"), HttpMethod.POST,
                 request, String.class);
-        Assertions.assertEquals(200, response.getStatusCodeValue());
+        Assertions.assertEquals(201, response.getStatusCodeValue());
     }
 
     @Test
