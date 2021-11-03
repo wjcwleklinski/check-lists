@@ -17,13 +17,13 @@ public class CheckListCreateCommandHandler implements CommandHandler<CheckListCr
     private final CheckListRepository checkListRepository;
 
     @Override
-    public void execute(CheckListCreateCommand command) {
+    public String execute(CheckListCreateCommand command) {
         CheckList checkList = CheckList.builder()
                 .name(command.getName())
                 .description(command.getDescription())
                 .image(command.getImage())
                 .build();
         checkList.setCode(command.getCode());
-        commonService.save(checkList, checkListRepository);
+        return commonService.save(checkList, checkListRepository);
     }
 }

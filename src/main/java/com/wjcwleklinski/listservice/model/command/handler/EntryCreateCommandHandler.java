@@ -23,7 +23,7 @@ public class EntryCreateCommandHandler implements CommandHandler<EntryCreateComm
     private final EntryRepository entryRepository;
 
     @Override
-    public void execute(EntryCreateCommand command) {
+    public String execute(EntryCreateCommand command) {
         CheckList checkList = (CheckList) commonService.getByCode(command.getListCode(), checkListRepository);
         Entry entry = new Entry();
         entry.setCode(command.getCode());
@@ -32,10 +32,10 @@ public class EntryCreateCommandHandler implements CommandHandler<EntryCreateComm
         entry.setPriority(command.getPriority());
         entry.setImage(command.getImage());
         entry.setCheckList(checkList);
-        commonService.save(entry, entryRepository);
         if (checkList.getEntries() == null) {
             checkList.setEntries(new ArrayList<>());
         }
         checkList.getEntries().add(entry);
+        return commonService.save(entry, entryRepository);
     }
 }

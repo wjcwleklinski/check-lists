@@ -14,12 +14,12 @@ import java.util.Optional;
 @Service
 public class CommonService {
 
-    public <T extends CommonEntity> void save(T entity, JpaRepository<T, Long> repository) {
+    public <T extends CommonEntity> String save(T entity, JpaRepository<T, Long> repository) {
         if (entity.getCode() == null) {
             entity.setCode(RandomStringUtils.randomAlphanumeric(15));
         }
         try {
-            repository.save(entity);
+            return repository.save(entity).getCode();
         } catch (DataIntegrityViolationException ex) {
             throw new ConflictException(entity.getCode());
         }
