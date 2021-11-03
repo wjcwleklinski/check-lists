@@ -17,11 +17,11 @@ public class CheckListUpdateCommandHandler implements CommandHandler<CheckListUp
     private final CheckListRepository checkListRepository;
 
     @Override
-    public void execute(CheckListUpdateCommand command) {
+    public String execute(CheckListUpdateCommand command) {
         CheckList checkList = (CheckList) commonService.getByCode(command.getListCode(), checkListRepository);
         checkList.setName(command.getName());
         checkList.setDescription(command.getDescription());
         checkList.setImage(command.getImage());
-        commonService.save(checkList, checkListRepository);
+        return commonService.save(checkList, checkListRepository);
     }
 }

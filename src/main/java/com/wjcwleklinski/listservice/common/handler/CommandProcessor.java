@@ -16,14 +16,14 @@ public class CommandProcessor {
     private final ListableBeanFactory beanFactory;
 
     @SuppressWarnings("unchecked")
-    public <T> void process(T command) {
+    public <T> String process(T command) {
         try {
             CommandHandler<T> commandHandler = (CommandHandler<T>) Arrays.stream(beanFactory.getBeanNamesForType(
                     ResolvableType.forClassWithGenerics(CommandHandler.class, command.getClass())))
                     .map(beanFactory::getBean)
                     .findFirst()
                     .orElseThrow(() -> new InternalServerException(ErrorMessage.COMMAND_HANDLER_NOT_FOUND.getMessage(command.getClass())));
-            commandHandler.execute(command);
+            return commandHandler.execute(command);
         } catch (ClassCastException classCastException) {
             throw new InternalServerException(ErrorMessage.COMMAND_HANDLER_NOT_FOUND.getMessage(command.getClass()));
         }

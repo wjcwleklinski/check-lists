@@ -18,12 +18,12 @@ public class EntryUpdateCommandHandler implements CommandHandler<EntryUpdateComm
     private final EntryRepository entryRepository;
 
     @Override
-    public void execute(EntryUpdateCommand command) {
+    public String execute(EntryUpdateCommand command) {
         Entry entry = (Entry) commonService.getByCode(command.getEntryCode(), entryRepository);
         entry.setName(command.getName());
         entry.setDescription(command.getDescription());
         entry.setPriority(command.getPriority());
         entry.setImage(command.getImage());
-        entryRepository.save(entry);
+        return commonService.save(entry, entryRepository);
     }
 }

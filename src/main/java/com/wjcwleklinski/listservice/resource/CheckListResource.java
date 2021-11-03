@@ -1,6 +1,7 @@
 package com.wjcwleklinski.listservice.resource;
 
 import com.wjcwleklinski.listservice.common.handler.CommandProcessor;
+import com.wjcwleklinski.listservice.common.resource.CommonResource;
 import com.wjcwleklinski.listservice.model.command.*;
 import com.wjcwleklinski.listservice.model.projection.CheckListCollectionProjection;
 import com.wjcwleklinski.listservice.model.view.CheckListDetailsView;
@@ -9,12 +10,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 @RequestMapping("/check-lists")
 @RequiredArgsConstructor
-public class CheckListResource {
+public class CheckListResource extends CommonResource {
 
     private final CheckListQueryService checkListQueryService;
 
@@ -26,9 +28,9 @@ public class CheckListResource {
     }
 
     @PostMapping
-    public ResponseEntity<?> createCheckList(@RequestBody CheckListCreateCommand command) {
-        commandProcessor.process(command);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> createCheckList(@RequestBody CheckListCreateCommand command,
+                                             HttpServletRequest request) {
+        return created(request, commandProcessor.process(command));
     }
 
     @GetMapping("/{listCode}")

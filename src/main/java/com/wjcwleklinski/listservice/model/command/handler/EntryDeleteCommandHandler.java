@@ -24,11 +24,12 @@ public class EntryDeleteCommandHandler implements CommandHandler<EntryDeleteComm
     private final EntryRepository entryRepository;
 
     @Override
-    public void execute(EntryDeleteCommand command) {
+    public String execute(EntryDeleteCommand command) {
         CheckList checkList = (CheckList) commonService.getByCode(command.getListCode(), checkListRepository);
         List<Entry> entries = checkList.getEntries().stream()
                 .filter(product -> command.getEntryCodes().contains(product.getCode()))
                 .collect(Collectors.toList());
         entryRepository.deleteInBatch(entries);
+        return checkList.getCode();
     }
 }
