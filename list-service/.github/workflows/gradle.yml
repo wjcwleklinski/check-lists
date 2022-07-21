@@ -25,5 +25,5 @@ jobs:
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
       - name: Build and Test with Gradle
         run: |
-          ./gradlew build
-          ./gradlew test -i
+          ./list-service/gradlew build
+          ./list-service/gradlew test -i
