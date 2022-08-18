@@ -1,0 +1,3 @@
+rootProject.name = 'check-lists'
+include 'api-gateway'
+include 'list-service'

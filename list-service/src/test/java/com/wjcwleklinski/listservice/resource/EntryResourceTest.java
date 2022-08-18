@@ -9,7 +9,9 @@ import com.wjcwleklinski.listservice.model.entity.Entry;
 import com.wjcwleklinski.listservice.model.view.CheckListDetailsView;
 import com.wjcwleklinski.listservice.model.view.EntryDetailsView;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +23,6 @@ import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-
 
 public class EntryResourceTest extends CommonResourceTest {
 
@@ -50,7 +51,8 @@ public class EntryResourceTest extends CommonResourceTest {
         entry2.setId(2L);
 
         when(entryRepository.findEntriesByCheckListCode(checkList.getCode())).thenReturn(Arrays.asList(entry1, entry2));
-        ResponseEntity<List<Map<String, Object>>> response = restTemplate.exchange(getUrl("/check-lists/checkListCode/entries"), HttpMethod.GET,
+        ResponseEntity<List<Map<String, Object>>> response = restTemplate
+                .exchange(getUrl("/check-lists/checkListCode/entries"), HttpMethod.GET,
                 null, new ParameterizedTypeReference<List<Map<String, Object>>>(){});
         Assertions.assertEquals(200, response.getStatusCodeValue());
         Assertions.assertEquals(response.getBody().size(), 2);

@@ -29,7 +29,7 @@ public class EntryResource extends CommonResource {
     @GetMapping
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public List<EntryCollectionView> getEntries(@PathVariable("listCode") String listCode) {
-        return entryQueryService.getProductsInList(listCode);
+        return entryQueryService.getEntriesInList(listCode);
     }
 
     @PostMapping
@@ -44,7 +44,7 @@ public class EntryResource extends CommonResource {
     @GetMapping("/{entryCode}")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public EntryDetailsView getEntryDetails(@PathVariable("entryCode") String entryCode) {
-        return entryQueryService.getProductByCode(entryCode);
+        return entryQueryService.getEntryByCode(entryCode);
     }
 
     @PutMapping("/{entryCode}")

@@ -10,8 +10,8 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -36,7 +36,7 @@ public class CommonResourceTest {
     @LocalServerPort
     private int randomServerPort;
 
-    protected RestTemplate restTemplate = new RestTemplate();
+    protected TestRestTemplate restTemplate = new TestRestTemplate();
 
     protected URI getUrl(String path) throws URISyntaxException {
         return new URI("http://localhost:" + randomServerPort + path);

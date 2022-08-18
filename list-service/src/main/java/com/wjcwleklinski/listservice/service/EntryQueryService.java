@@ -18,13 +18,13 @@ public class EntryQueryService {
 
     private final CommonService commonService;
 
-    public List<EntryCollectionView> getProductsInList(String listCode) {
+    public List<EntryCollectionView> getEntriesInList(String listCode) {
         return entryRepository.findEntriesByCheckListCode(listCode).stream()
                 .map(EntryCollectionView::getInstance)
                 .collect(Collectors.toList());
     }
 
-    public EntryDetailsView getProductByCode(String productCode) {
+    public EntryDetailsView getEntryByCode(String productCode) {
         return EntryDetailsView.getInstance((Entry) commonService.getByCode(productCode, entryRepository));
     }
 }
